@@ -7,6 +7,7 @@ sudo: required
 dist: trusty
 before_install: |
   if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+    # Get latest version of brew
     brew update
     # Recommended for pyenv
     brew outdated openssl || brew upgrade openssl
@@ -35,8 +36,7 @@ install:
   - pip freeze
 script:
   - flake8
-  - pytest --durations=0 --cov=./ tests/unit/
-  - pytest --durations=0 tests/integration/
+  - pytest --durations=0 --cov=./ --integration
 after_success:
   - codecov
 jobs:
@@ -62,7 +62,16 @@ jobs:
       script:
         - sudo apt-get install graphviz
         - pip install -r docs/demos/requirements.txt
-        - travis_wait 40 pytest --durations=0 tests/notebook
+        - travis_wait 40 pytest --durations=0 --notebook
+    - script:
+        - brew install graphviz
+        - pip install -r docs/demos/requirements.txt
+        - travis_wait 40 pytest --durations=0 --notebook_hpo
+      os: osx
+      language: generic
+      python: '3.6'
+      env: PYTHON=3.6.6
+      name: "HPO notebook"
     - stage: release
       if: branch = master
       python: '3.6' # Official supported Python dist.
