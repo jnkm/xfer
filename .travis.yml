@@ -4,7 +4,6 @@ python:
   - '3.4'
   - '3.5'
 sudo: required
-dist: bionic
 before_install: |
   if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
     # Get latest version of brew
