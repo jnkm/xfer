@@ -28,7 +28,8 @@ before_install: |
       pip install numpy
     fi
   fi
-  - cd xfer-library
+  cd xfer-library
+  ls
 install:
   - pip install -r requirements.txt
   - pip install -r test_requirements.txt
