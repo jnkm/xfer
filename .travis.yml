@@ -4,7 +4,7 @@ python:
   - '3.4'
   - '3.5'
 sudo: required
-dist: precise
+dist: bionic
 before_install: |
   if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
     # Get latest version of brew
@@ -28,7 +28,7 @@ before_install: |
       pip install numpy
     fi
   fi
-  cd xfer-library
+  - cd xfer-library
 install:
   - pip install -r requirements.txt
   - pip install -r test_requirements.txt
