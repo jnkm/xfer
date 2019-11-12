@@ -27,7 +27,7 @@ before_install: |
       pip install numpy
     fi
   fi
-  if git diff --name-only HEAD HEAD~6 | grep -E '(xfer-library)'; then echo "Found xfer-library changes so running the CI"; exit; fi
+  if git diff --name-only $TRAVIS_COMMIT_RANGE | grep -E '(xfer-library)'; then echo "Found xfer-library changes so running the CI"; exit; fi
   cd xfer-library
 install:
   - pip install -r requirements.txt
