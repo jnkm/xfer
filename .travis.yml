@@ -31,6 +31,8 @@ before_install: |
   then
     echo "Found xfer-library changes so running the CI"
     exit
+  else
+    echo "No xfer-library changes found. Not running the CI."
   fi
   cd xfer-library
 install:
