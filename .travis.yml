@@ -5,6 +5,13 @@ python:
   - '3.5'
 sudo: required
 before_install: |
+  if git diff --name-only $TRAVIS_COMMIT_RANGE | grep -E '(xfer-library)'
+  then
+    echo "Found xfer-library changes so running the CI"
+  else
+    echo "No xfer-library changes found. Not running the CI."
+    travis_terminate 0
+  fi
   if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
     # Get latest version of brew
     brew update
@@ -26,13 +33,6 @@ before_install: |
       # GPy requires numpy during setup for Python versions less than 3.5
       pip install numpy
     fi
-  fi
-  if git diff --name-only $TRAVIS_COMMIT_RANGE | grep -E '(xfer-library)'
-  then
-    echo "Found xfer-library changes so running the CI"
-  else
-    echo "No xfer-library changes found. Not running the CI."
-    travis_terminate 0
   fi
   cd xfer-library
 install:
